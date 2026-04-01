@@ -169,7 +169,7 @@
     {{#if showOfferSummary}}
     <h2 class="sec-title">{{t "offerSummaryTitle"}}</h2>
     <div class="kpi-row">
-      <div class="kpi"><div class="kpi-val">{{totalPallets phase1Pallets phase2Pallets phase3Pallets}}</div><div class="kpi-lbl">{{t "kpiTotalPallet"}}</div></div>
+      <div class="kpi"><div class="kpi-val">{{activeTotalPallets}}</div><div class="kpi-lbl">{{t "kpiTotalPallet"}}</div></div>
       <div class="kpi"><div class="kpi-val">{{temperature}}°C</div><div class="kpi-lbl">{{t "kpiTemperature"}}</div></div>
       <div class="kpi"><div class="kpi-val">{{humidity}}%</div><div class="kpi-lbl">{{t "kpiHumidity"}}</div></div>
       <div class="kpi"><div class="kpi-val">24/7</div><div class="kpi-lbl">{{t "kpiSecurity"}}</div></div>
@@ -235,27 +235,44 @@
 
     {{#if showCapacity}}
     <div class="divider"></div>
+    {{#if isMultiPhase}}
     <h2 class="sec-title">{{t "capacityTitle"}}</h2>
     <div class="hl-box"><p>{{{capacityIntroHtml}}}</p></div>
+    {{else}}
+    <h2 class="sec-title">{{t "capacityPlanningTitle"}}</h2>
+    <div class="hl-box"><p>{{{capacitySingleIntroHtml}}}</p></div>
+    {{/if}}
     <div class="timeline">
       <div class="tl-item">
+        {{#if isMultiPhase}}
         <div class="tl-date">{{t "phase1Label"}} — {{phase1Date}}</div>
+        {{else}}
+        <div class="tl-date">{{phase1Date}}</div>
+        {{/if}}
         <div class="tl-desc">{{{phase1DescHtml}}}</div>
       </div>
+      {{#if showPhase2}}
       <div class="tl-item">
         <div class="tl-date">{{t "phase2Label"}} — {{phase2Date}}</div>
         <div class="tl-desc">{{{phase2DescHtml}}}</div>
       </div>
+      {{/if}}
+      {{#if showPhase3}}
       <div class="tl-item">
         <div class="tl-date">{{t "phase3Label"}} — {{phase3Date}}</div>
         <div class="tl-desc">{{{phase3DescHtml}}}</div>
       </div>
+      {{/if}}
     </div>
     <div class="kpi-row">
-      <div class="kpi"><div class="kpi-val">{{phase1Rooms}} × {{phase1Size}}m²</div><div class="kpi-lbl">{{t "phase1Label"}} {{t "phaseRooms"}}</div></div>
+      <div class="kpi"><div class="kpi-val">{{phase1Rooms}} × {{phase1Size}}m²</div><div class="kpi-lbl">{{#if isMultiPhase}}{{t "phase1Label"}} {{/if}}{{t "phaseRooms"}}</div></div>
+      {{#if showPhase2}}
       <div class="kpi"><div class="kpi-val">{{phase2Rooms}} × {{phase2Size}}m²</div><div class="kpi-lbl">{{t "phase2Label"}} {{t "phaseRooms"}} ({{t "racked"}})</div></div>
+      {{/if}}
+      {{#if showPhase3}}
       <div class="kpi"><div class="kpi-val">{{phase3Rooms}} × {{phase3Size}}m²</div><div class="kpi-lbl">{{t "phase3Label"}} {{t "phaseRooms"}}</div></div>
-      <div class="kpi"><div class="kpi-val">{{totalPallets phase1Pallets phase2Pallets phase3Pallets}}+</div><div class="kpi-lbl">{{t "totalPalletsBy"}} {{phase3DateShort}}</div></div>
+      {{/if}}
+      <div class="kpi"><div class="kpi-val">{{activeTotalPallets}}+</div><div class="kpi-lbl">{{t "kpiTotalPallet"}}</div></div>
     </div>
     {{/if}}
   </div>

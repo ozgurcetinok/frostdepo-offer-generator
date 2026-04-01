@@ -64,7 +64,7 @@ tailwind.config = {
         <div><label data-ui="clientAddress" class="block text-xs font-semibold text-gray-600 mb-1">Client Address</label><input name="clientAddress" type="text" data-ui-ph="clientAddressPh" placeholder="e.g. Rotterdam, Netherlands" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
         <div><label data-ui="offerDate" class="block text-xs font-semibold text-gray-600 mb-1">Offer Date</label><input name="offerDate" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
         <div><label data-ui="refNumber" class="block text-xs font-semibold text-gray-600 mb-1">Reference Number</label><input name="refNumber" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label data-ui="validityLabel" class="block text-xs font-semibold text-gray-600 mb-1">Validity</label><input name="validity" type="text" value="30 Days" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="validityLabel" class="block text-xs font-semibold text-gray-600 mb-1">Validity</label><input name="validity" type="text" value="7 Days" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
       </div>
     </fieldset>
 
@@ -82,7 +82,15 @@ tailwind.config = {
     <!-- Capacity Phases -->
     <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
       <legend data-ui="capacityLegend" class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Capacity Phases</legend>
-      <p data-ui="capacityDesc" class="text-xs text-gray-500 mt-2 mb-4">Define the phased rollout schedule for storage capacity.</p>
+      <div class="flex items-center gap-4 mt-3 mb-4">
+        <label data-ui="phaseCountLabel" class="text-xs font-semibold text-gray-600 whitespace-nowrap">Number of Phases</label>
+        <select name="phaseCount" id="phaseCountSelect" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm font-semibold">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+        </select>
+        <p data-ui="capacityDesc" class="text-xs text-gray-500 flex-1">Define the phased rollout schedule for storage capacity.</p>
+      </div>
       <div class="mb-4 p-4 bg-brand-50 rounded-lg border border-brand-100">
         <h3 class="text-xs font-bold text-brand-700 mb-3" data-ui-phase="1"></h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -92,7 +100,7 @@ tailwind.config = {
           <div><label data-ui="roomSize" class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase1Size" type="number" value="240" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
         </div>
       </div>
-      <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+      <div id="phase2Block" class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
         <h3 class="text-xs font-bold text-gray-700 mb-3" data-ui-phase="2"></h3>
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
           <div><label data-ui="date" class="block text-xs text-gray-600 mb-1">Date</label><input name="phase2Date" type="text" value="Monday, May 11, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
@@ -102,7 +110,7 @@ tailwind.config = {
           <div><label data-ui="storageType" class="block text-xs text-gray-600 mb-1">Storage Type</label><input name="phase2Type" type="text" value="rack systems" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
         </div>
       </div>
-      <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+      <div id="phase3Block" class="p-4 bg-gray-50 rounded-lg border border-gray-200">
         <h3 class="text-xs font-bold text-gray-700 mb-3" data-ui-phase="3"></h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div><label data-ui="date" class="block text-xs text-gray-600 mb-1">Date</label><input name="phase3Date" type="text" value="Monday, May 25, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
@@ -190,7 +198,9 @@ const UI = {
     pricingLegend: 'Pricing',
     storageFee: 'Storage Fee (₺/pallet/month)', loadingFee: 'Loading Fee ($/pallet)',
     unloadingFee: 'Unloading Fee ($/pallet)', vatRate: 'VAT Rate (%)',
-    capacityLegend: 'Capacity Phases', capacityDesc: 'Define the phased rollout schedule for storage capacity.',
+    capacityLegend: 'Capacity Phases', capacityPlanningLegend: 'Capacity Planning',
+    capacityDesc: 'Define the phased rollout schedule for storage capacity.', capacityDescSingle: 'Define the storage capacity.',
+    phaseCountLabel: 'Number of Phases',
     phase: 'Phase', date: 'Date', pallets: 'Pallets', rooms: 'Rooms',
     roomSize: 'Room Size (m²)', storageType: 'Storage Type',
     opsLegend: 'Operations & Contract',
@@ -220,6 +230,7 @@ const UI = {
     sec_palletSpecsItems: 'Contract — Pallet Specs (one per line)',
     sec_paymentItems: 'Payment Terms (one per line)',
     sec_capacityIntro: 'Capacity Rollout Introduction',
+    sec_capacitySingleIntro: 'Capacity Planning Introduction',
     sec_phase1Desc: 'Phase 1 Description', sec_phase2Desc: 'Phase 2 Description', sec_phase3Desc: 'Phase 3 Description',
     sec_inOutItems: 'IN/OUT Operations (one per line)',
     sec_climateItems: 'Climate Control (one per line)',
@@ -236,7 +247,9 @@ const UI = {
     pricingLegend: 'Fiyatlandırma',
     storageFee: 'Depolama Ücreti (₺/palet/ay)', loadingFee: 'Bindirme Ücreti ($/palet)',
     unloadingFee: 'İndirme Ücreti ($/palet)', vatRate: 'KDV Oranı (%)',
-    capacityLegend: 'Kapasite Aşamaları', capacityDesc: 'Depolama kapasitesinin aşamalı devreye alma takvimini belirleyin.',
+    capacityLegend: 'Kapasite Aşamaları', capacityPlanningLegend: 'Kapasite Planlaması',
+    capacityDesc: 'Depolama kapasitesinin aşamalı devreye alma takvimini belirleyin.', capacityDescSingle: 'Depolama kapasitesini belirleyin.',
+    phaseCountLabel: 'Aşama Sayısı',
     phase: 'Aşama', date: 'Tarih', pallets: 'Palet', rooms: 'Oda',
     roomSize: 'Oda Boyutu (m²)', storageType: 'Depolama Tipi',
     opsLegend: 'Operasyon & Sözleşme',
@@ -249,14 +262,14 @@ const UI = {
     footer: '© 2026 FrostDepo. Dahili araç.',
     docSections: 'Doküman Bölümleri',
     docSectionsDesc: 'Oluşturulan dokümana dahil edilecek veya hariç tutulacak bölümleri seçin. Tüm bölümler varsayılan olarak dahildir.',
-    tog_showOfferSummary: 'Teklif Özeti & KPI',
+    tog_showOfferSummary: 'Teklif Özeti',
     tog_showPricing: 'Fiyatlandırma Tablosu',
     tog_showIncluded: 'Dahil Olan Hizmetler',
     tog_showContractTerms: 'Sözleşme Koşulları',
     tog_showPayment: 'Ödeme & Faturalama',
     tog_showCapacity: 'Kapasite Devreye Alma',
     tog_showOperations: 'Operasyonel Detaylar',
-    tog_showSecurity: 'Güvenlik & İSG',
+    tog_showSecurity: 'Güvenlik',
     tog_showFacilitySpecs: 'Tesis Özellikleri',
     sec_coverSubtitle: 'Kapak Alt Başlığı',
     sec_offerHighlight: 'Teklif Özeti Vurgusu',
@@ -266,6 +279,7 @@ const UI = {
     sec_palletSpecsItems: 'Sözleşme — Palet Özellikleri (satır başı bir madde)',
     sec_paymentItems: 'Ödeme Koşulları (satır başı bir madde)',
     sec_capacityIntro: 'Kapasite Devreye Alma Girişi',
+    sec_capacitySingleIntro: 'Kapasite Planlama Girişi',
     sec_phase1Desc: 'Aşama 1 Açıklaması', sec_phase2Desc: 'Aşama 2 Açıklaması', sec_phase3Desc: 'Aşama 3 Açıklaması',
     sec_inOutItems: 'Giriş/Çıkış Operasyonları (satır başı bir madde)',
     sec_climateItems: 'İklim Kontrolü (satır başı bir madde)',
@@ -286,10 +300,11 @@ const SECTIONS = [
   { id: 'minTermItems', label: 'Contract — Minimum Term (one per line)', rows: 3 },
   { id: 'palletSpecsItems', label: 'Contract — Pallet Specs (one per line)', rows: 4 },
   { id: 'paymentItems', label: 'Payment Terms (one per line)', rows: 6 },
-  { id: 'capacityIntro', label: 'Capacity Rollout Introduction', rows: 3 },
+  { id: 'capacityIntro', label: 'Capacity Rollout Introduction', rows: 3, minPhase: 2 },
+  { id: 'capacitySingleIntro', label: 'Capacity Planning Introduction', rows: 3, maxPhase: 1 },
   { id: 'phase1Desc', label: 'Phase 1 Description', rows: 3 },
-  { id: 'phase2Desc', label: 'Phase 2 Description', rows: 3 },
-  { id: 'phase3Desc', label: 'Phase 3 Description', rows: 3 },
+  { id: 'phase2Desc', label: 'Phase 2 Description', rows: 3, minPhase: 2 },
+  { id: 'phase3Desc', label: 'Phase 3 Description', rows: 3, minPhase: 3 },
   { id: 'inOutItems', label: 'IN/OUT Operations (one per line)', rows: 3 },
   { id: 'climateItems', label: 'Climate Control (one per line)', rows: 4 },
   { id: 'securityItems', label: 'Security Measures (one per line)', rows: 4 },
@@ -320,12 +335,82 @@ function buildSectionToggles() {
   }
 }
 
+const EN_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const TR_MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+const EN_DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const TR_DAYS = ['Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi','Pazar'];
+const DATE_FIELDS = ['offerDate', 'phase1Date', 'phase2Date', 'phase3Date'];
+const TERM_FIELDS = ['validity', 'initialPeriod', 'maxExtension'];
+
+function translateDate(str, toLang) {
+  if (!str) return str;
+  let s = str;
+  if (toLang === 'tr') {
+    EN_DAYS.forEach((d, i) => { s = s.replace(d, TR_DAYS[i]); });
+    EN_MONTHS.forEach((m, i) => { s = s.replace(m, TR_MONTHS[i]); });
+    s = s.replace(/([^\s,]+)\s+(\d{1,2}),\s*(\d{4})/, '$2 $1 $3');
+  } else {
+    TR_DAYS.forEach((d, i) => { s = s.replace(d, EN_DAYS[i]); });
+    TR_MONTHS.forEach((m, i) => { s = s.replace(m, EN_MONTHS[i]); });
+    s = s.replace(/(\d{1,2})\s+([^\s,]+)\s+(\d{4})/, '$2 $1, $3');
+  }
+  return s;
+}
+
+function translateTerm(str, toLang) {
+  if (!str) return str;
+  if (toLang === 'tr') {
+    return str.replace(/(\d+)\s*years?/gi, '$1 yıl').replace(/(\d+)\s*months?/gi, '$1 ay').replace(/(\d+)\s*days?/gi, '$1 gün');
+  }
+  return str.replace(/(\d+)\s*yıl/gi, (_, n) => `${n} year${+n > 1 ? 's' : ''}`).replace(/(\d+)\s*ay\b/gi, (_, n) => `${n} month${+n > 1 ? 's' : ''}`).replace(/(\d+)\s*gün/gi, (_, n) => `${n} day${+n > 1 ? 's' : ''}`);
+}
+
+function getPhaseCount() { return parseInt(document.getElementById('phaseCountSelect').value) || 3; }
+
+function updatePhaseVisibility() {
+  const count = getPhaseCount();
+  document.getElementById('phase2Block').style.display = count >= 2 ? '' : 'none';
+  document.getElementById('phase3Block').style.display = count >= 3 ? '' : 'none';
+  const u = UI[currentLang] || UI.en;
+  const legend = document.querySelector('[data-ui="capacityLegend"]');
+  if (legend) legend.textContent = count === 1 ? u.capacityPlanningLegend : u.capacityLegend;
+  const desc = document.querySelector('[data-ui="capacityDesc"]');
+  if (desc) desc.textContent = count === 1 ? u.capacityDescSingle : u.capacityDesc;
+  updateEditSectionVisibility();
+  updateCapacityIntroDefault();
+}
+
+function updateEditSectionVisibility() {
+  const count = getPhaseCount();
+  for (const sec of SECTIONS) {
+    const wrapper = document.querySelector(`[data-edit-wrapper="${sec.id}"]`);
+    if (!wrapper) continue;
+    const show = (!sec.minPhase || count >= sec.minPhase) && (!sec.maxPhase || count <= sec.maxPhase);
+    wrapper.style.display = show ? '' : 'none';
+  }
+}
+
+function updateCapacityIntroDefault() {
+  if (!T) return;
+  const count = getPhaseCount();
+  const ed = T.editable[currentLang] || T.editable.en;
+  if (count === 1 && !editedFields['capacitySingleIntro']) {
+    const ta = document.querySelector('textarea[name="capacitySingleIntro"]');
+    if (ta) ta.value = ed.capacitySingleIntro || '';
+  }
+  if (count > 1 && !editedFields['capacityIntro']) {
+    const ta = document.querySelector('textarea[name="capacityIntro"]');
+    if (ta) ta.value = ed.capacityIntro || '';
+  }
+}
+
 async function loadTranslations() {
   const res = await fetch('/api/translations');
   T = await res.json();
   buildSectionToggles();
   buildEditSections();
   setLang('en');
+  updatePhaseVisibility();
 }
 
 function buildEditSections() {
@@ -334,6 +419,7 @@ function buildEditSections() {
   const u = UI[currentLang] || UI.en;
   for (const sec of SECTIONS) {
     const div = document.createElement('div');
+    div.setAttribute('data-edit-wrapper', sec.id);
     div.innerHTML = `
       <label data-ui-sec="${sec.id}" class="block text-xs font-semibold text-gray-700 mb-1">${u['sec_' + sec.id] || sec.label}</label>
       <textarea name="${sec.id}" rows="${sec.rows}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono"></textarea>`;
@@ -366,10 +452,15 @@ function applyUITranslations(lang) {
     const key = el.getAttribute('data-ui-ph');
     if (u[key]) el.placeholder = u[key];
   });
+  const count = getPhaseCount();
   document.querySelectorAll('[data-ui-phase]').forEach(el => {
     const n = el.getAttribute('data-ui-phase');
-    el.textContent = u.phase + ' ' + n;
+    el.textContent = (count === 1 && n === '1') ? '' : u.phase + ' ' + n;
   });
+  const legend = document.querySelector('[data-ui="capacityLegend"]');
+  if (legend) legend.textContent = count === 1 ? u.capacityPlanningLegend : u.capacityLegend;
+  const capDesc = document.querySelector('[data-ui="capacityDesc"]');
+  if (capDesc) capDesc.textContent = count === 1 ? u.capacityDescSingle : u.capacityDesc;
   document.querySelectorAll('[data-ui-sec]').forEach(el => {
     const key = el.getAttribute('data-ui-sec');
     if (u['sec_' + key]) el.textContent = u['sec_' + key];
@@ -388,6 +479,14 @@ function setLang(lang) {
     }`;
   });
   applyUITranslations(lang);
+  DATE_FIELDS.forEach(name => {
+    const el = document.querySelector(`[name="${name}"]`);
+    if (el) el.value = translateDate(el.value, lang);
+  });
+  TERM_FIELDS.forEach(name => {
+    const el = document.querySelector(`[name="${name}"]`);
+    if (el) el.value = translateTerm(el.value, lang);
+  });
   if (!T) return;
   const ed = T.editable[lang] || T.editable.en;
   for (const sec of SECTIONS) {
@@ -396,11 +495,14 @@ function setLang(lang) {
       ta.value = ed[sec.id] || '';
     }
   }
+  updatePhaseVisibility();
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => setLang(btn.dataset.lang));
 });
+
+document.getElementById('phaseCountSelect').addEventListener('change', updatePhaseVisibility);
 
 document.getElementById('secToggle').addEventListener('click', () => {
   const body = document.getElementById('secBody');
@@ -431,6 +533,7 @@ function getFormData() {
     else if (el.type === 'number') data[el.name] = Number(el.value);
     else data[el.name] = el.value;
   }
+  if (data.phaseCount) data.phaseCount = Number(data.phaseCount);
   const p3 = data.phase3Date || '';
   const parts = p3.split(',');
   data.phase3DateShort = parts.length >= 2 ? parts.slice(1).join(',').trim() : p3;

@@ -54,7 +54,7 @@ const EDITABLE_LIST_FIELDS = [
   'phase1Desc', 'phase2Desc', 'phase3Desc',
 ];
 const EDITABLE_TEXT_FIELDS = [
-  'coverSubtitle', 'offerHighlight', 'priceAdjustment', 'capacityIntro',
+  'coverSubtitle', 'offerHighlight', 'priceAdjustment', 'capacityIntro', 'capacitySingleIntro',
 ];
 
 function buildContext(body) {
@@ -62,11 +62,16 @@ function buildContext(body) {
   const labels = translations.labels[lang] || translations.labels.en;
   const editDefaults = translations.editable[lang] || translations.editable.en;
 
+  const phaseCount = Number(body.phaseCount) || 3;
+  const p1 = Number(body.phase1Pallets) || 500;
+  const p2 = phaseCount >= 2 ? (Number(body.phase2Pallets) || 900) : 0;
+  const p3 = phaseCount >= 3 ? (Number(body.phase3Pallets) || 900) : 0;
+
   const formVars = {
     minTerm: body.minTerm || 6,
     initialPeriod: body.initialPeriod || '1 year',
     maxExtension: body.maxExtension || '3 years',
-    totalPallets: ((Number(body.phase1Pallets)||500) + (Number(body.phase2Pallets)||900) + (Number(body.phase3Pallets)||900)).toLocaleString('en-US'),
+    totalPallets: (p1 + p2 + p3).toLocaleString('en-US'),
     phase1Pallets: body.phase1Pallets || 500,
     phase1Rooms: body.phase1Rooms || 2,
     phase1Size: body.phase1Size || 240,
@@ -96,6 +101,12 @@ function buildContext(body) {
   ctx.showPage2 = ctx.showOfferSummary || ctx.showPricing || ctx.showIncluded;
   ctx.showPage3 = ctx.showContractTerms || ctx.showPayment || ctx.showCapacity;
   ctx.showPage4 = ctx.showOperations || ctx.showSecurity;
+
+  ctx.phaseCount = phaseCount;
+  ctx.isMultiPhase = phaseCount > 1;
+  ctx.showPhase2 = phaseCount >= 2;
+  ctx.showPhase3 = phaseCount >= 3;
+  ctx.activeTotalPallets = (p1 + p2 + p3).toLocaleString('en-US');
 
   for (const field of EDITABLE_LIST_FIELDS) {
     const raw = body[field] || editDefaults[field] || '';
