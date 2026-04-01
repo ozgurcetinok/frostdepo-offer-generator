@@ -36,8 +36,8 @@ tailwind.config = {
     <div class="flex items-center gap-4">
       <img src="frostdepo_logo.png" alt="FrostDepo" class="h-12">
       <div>
-        <h1 class="text-2xl font-extrabold text-brand-900">Offer Generator</h1>
-        <p class="text-sm text-gray-500">Fill in details, preview or download PDF.</p>
+        <h1 id="uiPageTitle" class="text-2xl font-extrabold text-brand-900">Offer Generator</h1>
+        <p id="uiPageSubtitle" class="text-sm text-gray-500">Fill in details, preview or download PDF.</p>
       </div>
     </div>
     <!-- Language Toggle -->
@@ -52,71 +52,71 @@ tailwind.config = {
 
     <!-- Client & Offer Details -->
     <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Client & Offer Details</legend>
+      <legend data-ui="clientLegend" class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Client & Offer Details</legend>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Client Company Name</label><input name="clientName" type="text" placeholder="e.g. Syngenta Seeds B.V." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Client Address</label><input name="clientAddress" type="text" placeholder="e.g. Rotterdam, Netherlands" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Offer Date</label><input name="offerDate" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Reference Number</label><input name="refNumber" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Validity</label><input name="validity" type="text" value="30 Days" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="clientName" class="block text-xs font-semibold text-gray-600 mb-1">Client Company Name</label><input name="clientName" type="text" data-ui-ph="clientNamePh" placeholder="e.g. Syngenta Seeds B.V." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="clientAddress" class="block text-xs font-semibold text-gray-600 mb-1">Client Address</label><input name="clientAddress" type="text" data-ui-ph="clientAddressPh" placeholder="e.g. Rotterdam, Netherlands" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="offerDate" class="block text-xs font-semibold text-gray-600 mb-1">Offer Date</label><input name="offerDate" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="refNumber" class="block text-xs font-semibold text-gray-600 mb-1">Reference Number</label><input name="refNumber" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="validityLabel" class="block text-xs font-semibold text-gray-600 mb-1">Validity</label><input name="validity" type="text" value="30 Days" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
       </div>
     </fieldset>
 
     <!-- Pricing -->
     <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Pricing</legend>
+      <legend data-ui="pricingLegend" class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Pricing</legend>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Storage Fee (₺/pallet/month)</label><input name="storageFee" type="number" value="1500" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Loading Fee ($/pallet)</label><input name="loadingFee" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Unloading Fee ($/pallet)</label><input name="unloadingFee" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">VAT Rate (%)</label><input name="vatRate" type="number" value="20" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="storageFee" class="block text-xs font-semibold text-gray-600 mb-1">Storage Fee (₺/pallet/month)</label><input name="storageFee" type="number" value="1500" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="loadingFee" class="block text-xs font-semibold text-gray-600 mb-1">Loading Fee ($/pallet)</label><input name="loadingFee" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="unloadingFee" class="block text-xs font-semibold text-gray-600 mb-1">Unloading Fee ($/pallet)</label><input name="unloadingFee" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="vatRate" class="block text-xs font-semibold text-gray-600 mb-1">VAT Rate (%)</label><input name="vatRate" type="number" value="20" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
       </div>
     </fieldset>
 
     <!-- Capacity Phases -->
     <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Capacity Phases</legend>
-      <p class="text-xs text-gray-500 mt-2 mb-4">Define the phased rollout schedule for storage capacity.</p>
+      <legend data-ui="capacityLegend" class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Capacity Phases</legend>
+      <p data-ui="capacityDesc" class="text-xs text-gray-500 mt-2 mb-4">Define the phased rollout schedule for storage capacity.</p>
       <div class="mb-4 p-4 bg-brand-50 rounded-lg border border-brand-100">
-        <h3 class="text-xs font-bold text-brand-700 mb-3">Phase 1</h3>
+        <h3 class="text-xs font-bold text-brand-700 mb-3" data-ui-phase="1"></h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div><label class="block text-xs text-gray-600 mb-1">Date</label><input name="phase1Date" type="text" value="Monday, April 20, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase1Pallets" type="number" value="500" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase1Rooms" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase1Size" type="number" value="240" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="date" class="block text-xs text-gray-600 mb-1">Date</label><input name="phase1Date" type="text" value="Monday, April 20, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="pallets" class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase1Pallets" type="number" value="500" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="rooms" class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase1Rooms" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="roomSize" class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase1Size" type="number" value="240" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
         </div>
       </div>
       <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <h3 class="text-xs font-bold text-gray-700 mb-3">Phase 2</h3>
+        <h3 class="text-xs font-bold text-gray-700 mb-3" data-ui-phase="2"></h3>
         <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-          <div><label class="block text-xs text-gray-600 mb-1">Date</label><input name="phase2Date" type="text" value="Monday, May 11, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase2Pallets" type="number" value="900" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase2Rooms" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase2Size" type="number" value="140" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Storage Type</label><input name="phase2Type" type="text" value="rack systems" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="date" class="block text-xs text-gray-600 mb-1">Date</label><input name="phase2Date" type="text" value="Monday, May 11, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="pallets" class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase2Pallets" type="number" value="900" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="rooms" class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase2Rooms" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="roomSize" class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase2Size" type="number" value="140" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="storageType" class="block text-xs text-gray-600 mb-1">Storage Type</label><input name="phase2Type" type="text" value="rack systems" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
         </div>
       </div>
       <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-        <h3 class="text-xs font-bold text-gray-700 mb-3">Phase 3</h3>
+        <h3 class="text-xs font-bold text-gray-700 mb-3" data-ui-phase="3"></h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div><label class="block text-xs text-gray-600 mb-1">Date</label><input name="phase3Date" type="text" value="Monday, May 25, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase3Pallets" type="number" value="900" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase3Rooms" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-          <div><label class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase3Size" type="number" value="140" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="date" class="block text-xs text-gray-600 mb-1">Date</label><input name="phase3Date" type="text" value="Monday, May 25, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="pallets" class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase3Pallets" type="number" value="900" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="rooms" class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase3Rooms" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label data-ui="roomSize" class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase3Size" type="number" value="140" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
         </div>
       </div>
     </fieldset>
 
     <!-- Operations & Contract -->
     <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Operations & Contract</legend>
+      <legend data-ui="opsLegend" class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Operations & Contract</legend>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Temperature (°C)</label><input name="temperature" type="number" value="15" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Humidity (%)</label><input name="humidity" type="number" value="50" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Monthly IN/OUT (pallets)</label><input name="monthlyInOut" type="number" value="750" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Minimum Term (months)</label><input name="minTerm" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Initial Contract Period</label><input name="initialPeriod" type="text" value="1 year" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
-        <div><label class="block text-xs font-semibold text-gray-600 mb-1">Max Extension</label><input name="maxExtension" type="text" value="3 years" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="temperature" class="block text-xs font-semibold text-gray-600 mb-1">Temperature (°C)</label><input name="temperature" type="number" value="15" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="humidity" class="block text-xs font-semibold text-gray-600 mb-1">Humidity (%)</label><input name="humidity" type="number" value="50" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="monthlyInOut" class="block text-xs font-semibold text-gray-600 mb-1">Monthly IN/OUT (pallets)</label><input name="monthlyInOut" type="number" value="750" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="minTerm" class="block text-xs font-semibold text-gray-600 mb-1">Minimum Term (months)</label><input name="minTerm" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="initialPeriod" class="block text-xs font-semibold text-gray-600 mb-1">Initial Contract Period</label><input name="initialPeriod" type="text" value="1 year" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        <div><label data-ui="maxExtension" class="block text-xs font-semibold text-gray-600 mb-1">Max Extension</label><input name="maxExtension" type="text" value="3 years" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
       </div>
     </fieldset>
 
@@ -125,12 +125,12 @@ tailwind.config = {
       <button type="button" id="advToggle" class="w-full flex items-center justify-between p-5 hover:bg-gray-50 transition-colors">
         <div class="flex items-center gap-3">
           <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-          <span class="text-sm font-bold text-brand-900 uppercase tracking-wider">Advanced Offer Editing</span>
+          <span id="uiAdvancedEditing" class="text-sm font-bold text-brand-900 uppercase tracking-wider">Advanced Offer Editing</span>
         </div>
         <svg id="advChevron" class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </button>
       <div id="advBody" class="collapse-body px-5 pb-5">
-        <p class="text-xs text-gray-500 mb-4">Edit the default text for each section. Use <code class="bg-gray-100 px-1 rounded">**text**</code> for bold. Each line in list fields becomes a bullet point. Variables like <code class="bg-gray-100 px-1 rounded">{minTerm}</code> are replaced with form values.</p>
+        <p id="uiAdvancedDesc" class="text-xs text-gray-500 mb-4">Edit the default text for each section. Use <code class="bg-gray-100 px-1 rounded">**text**</code> for bold. Each line in list fields becomes a bullet point. Variables like <code class="bg-gray-100 px-1 rounded">{minTerm}</code> are replaced with form values.</p>
 
         <div class="space-y-4" id="editSections">
           <!-- Sections are rendered by JS -->
@@ -142,7 +142,7 @@ tailwind.config = {
     <div class="flex flex-col sm:flex-row gap-3 pt-2">
       <button type="button" id="btnPreview" class="flex-1 flex items-center justify-center gap-2 bg-white border-2 border-brand-900 text-brand-900 font-semibold rounded-xl px-6 py-3 text-sm hover:bg-brand-50 transition-colors">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-        Preview HTML
+        <span id="uiPreview">Preview HTML</span>
       </button>
       <button type="button" id="btnDownload" class="flex-1 flex items-center justify-center gap-2 btn-primary text-white font-semibold rounded-xl px-6 py-3 text-sm transition-all">
         <svg id="dlIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -152,10 +152,83 @@ tailwind.config = {
     </div>
   </form>
 
-  <p class="text-center text-xs text-gray-400 mt-8">&copy; 2026 FrostDepo. Internal tool.</p>
+  <p id="uiFooter" class="text-center text-xs text-gray-400 mt-8">&copy; 2026 FrostDepo. Internal tool.</p>
 </div>
 
 <script>
+const UI = {
+  en: {
+    pageTitle: 'Offer Generator',
+    pageSubtitle: 'Fill in details, preview or download PDF.',
+    clientLegend: 'Client & Offer Details',
+    clientName: 'Client Company Name', clientNamePh: 'e.g. Syngenta Seeds B.V.',
+    clientAddress: 'Client Address', clientAddressPh: 'e.g. Rotterdam, Netherlands',
+    offerDate: 'Offer Date', refNumber: 'Reference Number', validityLabel: 'Validity',
+    pricingLegend: 'Pricing',
+    storageFee: 'Storage Fee (₺/pallet/month)', loadingFee: 'Loading Fee ($/pallet)',
+    unloadingFee: 'Unloading Fee ($/pallet)', vatRate: 'VAT Rate (%)',
+    capacityLegend: 'Capacity Phases', capacityDesc: 'Define the phased rollout schedule for storage capacity.',
+    phase: 'Phase', date: 'Date', pallets: 'Pallets', rooms: 'Rooms',
+    roomSize: 'Room Size (m²)', storageType: 'Storage Type',
+    opsLegend: 'Operations & Contract',
+    temperature: 'Temperature (°C)', humidity: 'Humidity (%)',
+    monthlyInOut: 'Monthly IN/OUT (pallets)', minTerm: 'Minimum Term (months)',
+    initialPeriod: 'Initial Contract Period', maxExtension: 'Max Extension',
+    advancedEditing: 'Advanced Offer Editing',
+    advancedDesc: 'Edit the default text for each section. Use <code class="bg-gray-100 px-1 rounded">**text**</code> for bold. Each line in list fields becomes a bullet point. Variables like <code class="bg-gray-100 px-1 rounded">{minTerm}</code> are replaced with form values.',
+    preview: 'Preview HTML', download: 'Download PDF', generating: 'Generating...',
+    footer: '© 2026 FrostDepo. Internal tool.',
+    sec_coverSubtitle: 'Cover Subtitle',
+    sec_offerHighlight: 'Offer Summary Highlight',
+    sec_priceAdjustment: 'Price Adjustment Note',
+    sec_includedItems: "What's Included (one per line)",
+    sec_minTermItems: 'Contract — Minimum Term (one per line)',
+    sec_palletSpecsItems: 'Contract — Pallet Specs (one per line)',
+    sec_paymentItems: 'Payment Terms (one per line)',
+    sec_capacityIntro: 'Capacity Rollout Introduction',
+    sec_phase1Desc: 'Phase 1 Description', sec_phase2Desc: 'Phase 2 Description', sec_phase3Desc: 'Phase 3 Description',
+    sec_inOutItems: 'IN/OUT Operations (one per line)',
+    sec_climateItems: 'Climate Control (one per line)',
+    sec_securityItems: 'Security Measures (one per line)',
+    sec_hseItems: 'HSE Compliance (one per line)',
+  },
+  tr: {
+    pageTitle: 'Teklif Oluşturucu',
+    pageSubtitle: 'Detayları doldurun, önizleme yapın veya PDF indirin.',
+    clientLegend: 'Müşteri & Teklif Bilgileri',
+    clientName: 'Müşteri Firma Adı', clientNamePh: 'ör. Syngenta Seeds B.V.',
+    clientAddress: 'Müşteri Adresi', clientAddressPh: 'ör. Rotterdam, Hollanda',
+    offerDate: 'Teklif Tarihi', refNumber: 'Referans Numarası', validityLabel: 'Geçerlilik',
+    pricingLegend: 'Fiyatlandırma',
+    storageFee: 'Depolama Ücreti (₺/palet/ay)', loadingFee: 'Bindirme Ücreti ($/palet)',
+    unloadingFee: 'İndirme Ücreti ($/palet)', vatRate: 'KDV Oranı (%)',
+    capacityLegend: 'Kapasite Aşamaları', capacityDesc: 'Depolama kapasitesinin aşamalı devreye alma takvimini belirleyin.',
+    phase: 'Aşama', date: 'Tarih', pallets: 'Palet', rooms: 'Oda',
+    roomSize: 'Oda Boyutu (m²)', storageType: 'Depolama Tipi',
+    opsLegend: 'Operasyon & Sözleşme',
+    temperature: 'Sıcaklık (°C)', humidity: 'Nem (%)',
+    monthlyInOut: 'Aylık GİRİŞ/ÇIKIŞ (palet)', minTerm: 'Minimum Süre (ay)',
+    initialPeriod: 'İlk Sözleşme Süresi', maxExtension: 'Maksimum Uzatma',
+    advancedEditing: 'Gelişmiş Teklif Düzenleme',
+    advancedDesc: 'Her bölümün varsayılan metnini düzenleyin. Kalın yazmak için <code class="bg-gray-100 px-1 rounded">**metin**</code> kullanın. Liste alanlarında her satır bir madde olur. <code class="bg-gray-100 px-1 rounded">{minTerm}</code> gibi değişkenler form değerleriyle değiştirilir.',
+    preview: 'HTML Önizleme', download: 'PDF İndir', generating: 'Oluşturuluyor...',
+    footer: '© 2026 FrostDepo. Dahili araç.',
+    sec_coverSubtitle: 'Kapak Alt Başlığı',
+    sec_offerHighlight: 'Teklif Özeti Vurgusu',
+    sec_priceAdjustment: 'Fiyat Düzenleme Notu',
+    sec_includedItems: 'Dahil Olan Hizmetler (satır başı bir madde)',
+    sec_minTermItems: 'Sözleşme — Minimum Süre (satır başı bir madde)',
+    sec_palletSpecsItems: 'Sözleşme — Palet Özellikleri (satır başı bir madde)',
+    sec_paymentItems: 'Ödeme Koşulları (satır başı bir madde)',
+    sec_capacityIntro: 'Kapasite Devreye Alma Girişi',
+    sec_phase1Desc: 'Aşama 1 Açıklaması', sec_phase2Desc: 'Aşama 2 Açıklaması', sec_phase3Desc: 'Aşama 3 Açıklaması',
+    sec_inOutItems: 'Giriş/Çıkış Operasyonları (satır başı bir madde)',
+    sec_climateItems: 'İklim Kontrolü (satır başı bir madde)',
+    sec_securityItems: 'Güvenlik Önlemleri (satır başı bir madde)',
+    sec_hseItems: 'İSG Uyumu (satır başı bir madde)',
+  }
+};
+
 let T = null;
 let currentLang = 'en';
 const editedFields = {};
@@ -188,13 +261,43 @@ async function loadTranslations() {
 function buildEditSections() {
   const container = document.getElementById('editSections');
   container.innerHTML = '';
+  const u = UI[currentLang] || UI.en;
   for (const sec of SECTIONS) {
     const div = document.createElement('div');
     div.innerHTML = `
-      <label class="block text-xs font-semibold text-gray-700 mb-1">${sec.label}</label>
+      <label data-ui-sec="${sec.id}" class="block text-xs font-semibold text-gray-700 mb-1">${u['sec_' + sec.id] || sec.label}</label>
       <textarea name="${sec.id}" rows="${sec.rows}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono"></textarea>`;
     container.appendChild(div);
   }
+}
+
+function applyUITranslations(lang) {
+  const u = UI[lang] || UI.en;
+  document.getElementById('uiPageTitle').textContent = u.pageTitle;
+  document.getElementById('uiPageSubtitle').textContent = u.pageSubtitle;
+  document.getElementById('uiAdvancedEditing').textContent = u.advancedEditing;
+  document.getElementById('uiAdvancedDesc').innerHTML = u.advancedDesc;
+  document.getElementById('uiPreview').textContent = u.preview;
+  document.getElementById('dlText').textContent = u.download;
+  document.getElementById('uiFooter').textContent = u.footer;
+  document.querySelectorAll('[data-ui]').forEach(el => {
+    const key = el.getAttribute('data-ui');
+    if (u[key]) el.textContent = u[key];
+  });
+  document.querySelectorAll('[data-ui-ph]').forEach(el => {
+    const key = el.getAttribute('data-ui-ph');
+    if (u[key]) el.placeholder = u[key];
+  });
+  document.querySelectorAll('[data-ui-phase]').forEach(el => {
+    const n = el.getAttribute('data-ui-phase');
+    el.textContent = u.phase + ' ' + n;
+  });
+  document.querySelectorAll('[data-ui-sec]').forEach(el => {
+    const key = el.getAttribute('data-ui-sec');
+    if (u['sec_' + key]) el.textContent = u['sec_' + key];
+  });
+  document.documentElement.lang = lang;
+  document.title = 'FrostDepo — ' + u.pageTitle;
 }
 
 function setLang(lang) {
@@ -206,6 +309,7 @@ function setLang(lang) {
       isActive ? 'bg-brand-900 text-white shadow' : 'text-gray-500 hover:text-gray-700'
     }`;
   });
+  applyUITranslations(lang);
   if (!T) return;
   const ed = T.editable[lang] || T.editable.en;
   for (const sec of SECTIONS) {
@@ -266,7 +370,7 @@ document.getElementById('btnDownload').addEventListener('click', async () => {
   btn.disabled = true;
   icon.classList.add('hidden');
   spinner.classList.remove('hidden');
-  text.textContent = 'Generating...';
+  text.textContent = (UI[currentLang] || UI.en).generating;
   try {
     const data = getFormData();
     const res = await fetch('/api/generate-pdf', {
@@ -288,7 +392,7 @@ document.getElementById('btnDownload').addEventListener('click', async () => {
     btn.disabled = false;
     icon.classList.remove('hidden');
     spinner.classList.add('hidden');
-    text.textContent = 'Download PDF';
+    text.textContent = (UI[currentLang] || UI.en).download;
   }
 });
 

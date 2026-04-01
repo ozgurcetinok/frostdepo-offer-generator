@@ -143,8 +143,8 @@
   },
   "editable": {
     "en": {
-      "coverSubtitle": "Dedicated cold storage solution for seed products — temperature-controlled, secure, and fully managed by FrostDepo.",
-      "offerHighlight": "This offer is prepared for **dedicated cold storage** of seed products, meeting all specified HSE, security, temperature, and humidity requirements. Storage rooms are **exclusively allocated** — no shared space with third-party goods.",
+      "coverSubtitle": "Dedicated cold storage solution for any product — temperature-controlled, secure, and fully managed by FrostDepo.",
+      "offerHighlight": "This offer is prepared for **dedicated cold storage** of products, meeting all specified HSE, security, temperature, and humidity requirements. Storage rooms are **exclusively allocated** — no shared space with third-party goods.",
       "priceAdjustment": "The above pricing is based on a minimum {minTerm}-month lease term. FrostDepo reserves the right to adjust storage fees every 3 months to reflect changes in electricity and operational costs.",
       "includedItems": "**Electricity costs** — fully covered by FrostDepo\n**Operational management** — all operational services provided and managed by FrostDepo\n**Temperature & humidity monitoring** — real-time monitoring system link provided to the client\n**24/7 security** — on-site guard services and surveillance systems\n**Dedicated rooms** — storage areas exclusively allocated to the client",
       "minTermItems": "**{minTerm} months** minimum storage commitment\nInitial contract period: **{initialPeriod}**\nExtendable up to **{maxExtension}**",
@@ -160,8 +160,8 @@
       "hseItems": "Products **not co-stored** with food, medicine, or children's goods\nFacility **away from** residential, school, hospital, and flood areas\nState-of-the-art **fire suppression system** installed\nHSE pre-check after operational control — fully supported"
     },
     "tr": {
-      "coverSubtitle": "Tohum ürünleri için özel soğuk hava depolama çözümü — sıcaklık kontrollü, güvenli ve tamamen FrostDepo tarafından yönetilen.",
-      "offerHighlight": "Bu teklif, tohum ürünlerinin **özel soğuk hava deposunda** depolanması için hazırlanmış olup, belirtilen tüm İSG, güvenlik, sıcaklık ve nem gereksinimlerini karşılamaktadır. Depolama odaları **müşteriye özel olarak tahsis** edilmiştir — üçüncü taraf ürünlerle ortak alan bulunmamaktadır.",
+      "coverSubtitle": "Her türlü ürün için özel soğuk hava depolama çözümü — sıcaklık kontrollü, güvenli ve tamamen FrostDepo tarafından yönetilen.",
+      "offerHighlight": "Bu teklif, ürünlerin **özel soğuk hava deposunda** depolanması için hazırlanmış olup, belirtilen tüm İSG, güvenlik, sıcaklık ve nem gereksinimlerini karşılamaktadır. Depolama odaları **müşteriye özel olarak tahsis** edilmiştir — üçüncü taraf ürünlerle ortak alan bulunmamaktadır.",
       "priceAdjustment": "Yukarıdaki fiyatlandırma minimum **{minTerm} aylık** kiralama koşuluna göre verilmiştir. FrostDepo, elektrik ve operasyonel maliyetlerdeki değişikliklere bağlı olarak her 3 ayda bir depolama ücretlerinde düzenleme yapma hakkını saklı tutar.",
       "includedItems": "**Elektrik maliyetleri** — tamamen FrostDepo tarafından karşılanmaktadır\n**Operasyonel yönetim** — tüm operasyonel hizmetler FrostDepo tarafından sağlanır ve yönetilir\n**Sıcaklık & nem izleme** — gerçek zamanlı izleme sistemi linki müşteriye sağlanır\n**7/24 güvenlik** — yerinde güvenlik hizmetleri ve izleme sistemleri\n**Özel odalar** — depolama alanları müşteriye özel olarak tahsis edilir",
       "minTermItems": "Minimum **{minTerm} ay** depolama taahhüdü\nİlk sözleşme süresi: **{initialPeriod}**\n**{maxExtension}** süreye kadar uzatılabilir",
