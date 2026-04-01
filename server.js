@@ -64,23 +64,25 @@ app.post('/api/generate-pdf', async (req, res) => {
     const html = template(buildContext(req.body));
     const browser = await getBrowser();
     const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
-    const pdf = await page.pdf({
+    await page.setContent(html, { waitUntil: 'load', timeout: 30000 });
+    await new Promise(r => setTimeout(r, 1000));
+    const pdfData = await page.pdf({
       format: 'A4',
       printBackground: true,
       margin: { top: 0, right: 0, bottom: 0, left: 0 },
     });
     await page.close();
 
+    const pdfBuffer = Buffer.from(pdfData);
     const clientName = (req.body.clientName || 'Client').replace(/[^a-zA-Z0-9_-]/g, '_');
     const filename = `FrostDepo_Offer_${clientName}.pdf`;
 
-    res.set({
+    res.writeHead(200, {
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="${filename}"`,
-      'Content-Length': pdf.length,
+      'Content-Length': pdfBuffer.length,
     });
-    res.send(pdf);
+    res.end(pdfBuffer);
   } catch (err) {
     console.error('PDF generation error:', err);
     res.status(500).json({ error: err.message });
