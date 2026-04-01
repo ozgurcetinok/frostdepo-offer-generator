@@ -26,6 +26,12 @@ tailwind.config = {
   .collapse-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
   .collapse-body.open { max-height: 2000px; }
   textarea { font-size: 13px; line-height: 1.6; }
+  .toggle-switch { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: #CBD5E1; border-radius: 20px; transition: .2s; }
+  .toggle-slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 2px; bottom: 2px; background: white; border-radius: 50%; transition: .2s; }
+  .toggle-switch input:checked + .toggle-slider { background: #0B1D3A; }
+  .toggle-switch input:checked + .toggle-slider::before { transform: translateX(16px); }
 </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -120,6 +126,23 @@ tailwind.config = {
       </div>
     </fieldset>
 
+    <!-- Document Sections -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <button type="button" id="secToggle" class="w-full flex items-center justify-between p-5 hover:bg-gray-50 transition-colors">
+        <div class="flex items-center gap-3">
+          <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+          <span id="uiDocSections" class="text-sm font-bold text-brand-900 uppercase tracking-wider">Document Sections</span>
+        </div>
+        <svg id="secChevron" class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <div id="secBody" class="collapse-body px-5 pb-5">
+        <p id="uiDocSectionsDesc" class="text-xs text-gray-500 mb-4">Toggle sections to include or exclude from the generated document. All sections are included by default.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="sectionToggles">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
     <!-- Advanced Offer Editing -->
     <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
       <button type="button" id="advToggle" class="w-full flex items-center justify-between p-5 hover:bg-gray-50 transition-colors">
@@ -178,6 +201,17 @@ const UI = {
     advancedDesc: 'Edit the default text for each section. Use <code class="bg-gray-100 px-1 rounded">**text**</code> for bold. Each line in list fields becomes a bullet point. Variables like <code class="bg-gray-100 px-1 rounded">{minTerm}</code> are replaced with form values.',
     preview: 'Preview HTML', download: 'Download PDF', generating: 'Generating...',
     footer: '© 2026 FrostDepo. Internal tool.',
+    docSections: 'Document Sections',
+    docSectionsDesc: 'Toggle sections to include or exclude from the generated document. All sections are included by default.',
+    tog_showOfferSummary: 'Offer Summary & KPIs',
+    tog_showPricing: 'Pricing Table',
+    tog_showIncluded: "What's Included",
+    tog_showContractTerms: 'Contract Terms',
+    tog_showPayment: 'Payment & Invoicing',
+    tog_showCapacity: 'Capacity Rollout',
+    tog_showOperations: 'Operational Details',
+    tog_showSecurity: 'Security & HSE',
+    tog_showFacilitySpecs: 'Facility Specifications',
     sec_coverSubtitle: 'Cover Subtitle',
     sec_offerHighlight: 'Offer Summary Highlight',
     sec_priceAdjustment: 'Price Adjustment Note',
@@ -213,6 +247,17 @@ const UI = {
     advancedDesc: 'Her bölümün varsayılan metnini düzenleyin. Kalın yazmak için <code class="bg-gray-100 px-1 rounded">**metin**</code> kullanın. Liste alanlarında her satır bir madde olur. <code class="bg-gray-100 px-1 rounded">{minTerm}</code> gibi değişkenler form değerleriyle değiştirilir.',
     preview: 'HTML Önizleme', download: 'PDF İndir', generating: 'Oluşturuluyor...',
     footer: '© 2026 FrostDepo. Dahili araç.',
+    docSections: 'Doküman Bölümleri',
+    docSectionsDesc: 'Oluşturulan dokümana dahil edilecek veya hariç tutulacak bölümleri seçin. Tüm bölümler varsayılan olarak dahildir.',
+    tog_showOfferSummary: 'Teklif Özeti & KPI',
+    tog_showPricing: 'Fiyatlandırma Tablosu',
+    tog_showIncluded: 'Dahil Olan Hizmetler',
+    tog_showContractTerms: 'Sözleşme Koşulları',
+    tog_showPayment: 'Ödeme & Faturalama',
+    tog_showCapacity: 'Kapasite Devreye Alma',
+    tog_showOperations: 'Operasyonel Detaylar',
+    tog_showSecurity: 'Güvenlik & İSG',
+    tog_showFacilitySpecs: 'Tesis Özellikleri',
     sec_coverSubtitle: 'Kapak Alt Başlığı',
     sec_offerHighlight: 'Teklif Özeti Vurgusu',
     sec_priceAdjustment: 'Fiyat Düzenleme Notu',
@@ -251,9 +296,34 @@ const SECTIONS = [
   { id: 'hseItems', label: 'HSE Compliance (one per line)', rows: 4 },
 ];
 
+const SECTION_TOGGLES = [
+  { id: 'showOfferSummary' },
+  { id: 'showPricing' },
+  { id: 'showIncluded' },
+  { id: 'showContractTerms' },
+  { id: 'showPayment' },
+  { id: 'showCapacity' },
+  { id: 'showOperations' },
+  { id: 'showSecurity' },
+  { id: 'showFacilitySpecs' },
+];
+
+function buildSectionToggles() {
+  const container = document.getElementById('sectionToggles');
+  container.innerHTML = '';
+  const u = UI[currentLang] || UI.en;
+  for (const sec of SECTION_TOGGLES) {
+    const div = document.createElement('div');
+    div.className = 'flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5';
+    div.innerHTML = `<label class="toggle-switch"><input type="checkbox" name="${sec.id}" checked><span class="toggle-slider"></span></label><span data-ui-tog="${sec.id}" class="text-xs font-medium text-gray-700">${u['tog_' + sec.id] || sec.id}</span>`;
+    container.appendChild(div);
+  }
+}
+
 async function loadTranslations() {
   const res = await fetch('/api/translations');
   T = await res.json();
+  buildSectionToggles();
   buildEditSections();
   setLang('en');
 }
@@ -280,6 +350,14 @@ function applyUITranslations(lang) {
   document.getElementById('uiPreview').textContent = u.preview;
   document.getElementById('dlText').textContent = u.download;
   document.getElementById('uiFooter').textContent = u.footer;
+  const docSec = document.getElementById('uiDocSections');
+  if (docSec) docSec.textContent = u.docSections;
+  const docSecDesc = document.getElementById('uiDocSectionsDesc');
+  if (docSecDesc) docSecDesc.textContent = u.docSectionsDesc;
+  document.querySelectorAll('[data-ui-tog]').forEach(el => {
+    const key = el.getAttribute('data-ui-tog');
+    if (u['tog_' + key]) el.textContent = u['tog_' + key];
+  });
   document.querySelectorAll('[data-ui]').forEach(el => {
     const key = el.getAttribute('data-ui');
     if (u[key]) el.textContent = u[key];
@@ -324,6 +402,13 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => setLang(btn.dataset.lang));
 });
 
+document.getElementById('secToggle').addEventListener('click', () => {
+  const body = document.getElementById('secBody');
+  const chev = document.getElementById('secChevron');
+  body.classList.toggle('open');
+  chev.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+});
+
 document.getElementById('advToggle').addEventListener('click', () => {
   const body = document.getElementById('advBody');
   const chev = document.getElementById('advChevron');
@@ -342,7 +427,8 @@ function getFormData() {
   const data = {};
   for (const el of form.querySelectorAll('input, select, textarea')) {
     if (!el.name) continue;
-    if (el.type === 'number') data[el.name] = Number(el.value);
+    if (el.type === 'checkbox') data[el.name] = el.checked;
+    else if (el.type === 'number') data[el.name] = Number(el.value);
     else data[el.name] = el.value;
   }
   const p3 = data.phase3Date || '';

@@ -153,6 +153,7 @@
   </div>
 </div>
 
+{{#if showPage2}}
 <!-- ===== PAGE 2: OFFER SUMMARY & PRICING ===== -->
 <div class="page content-page">
   <div class="pg-hdr">
@@ -165,6 +166,7 @@
       <div><div class="to-label">{{t "toLabel"}}</div><div class="to-value">{{clientName}}</div><div class="to-value" style="font-size:9px;color:#64748B;margin-top:2px">{{clientAddress}}</div></div>
     </div>
 
+    {{#if showOfferSummary}}
     <h2 class="sec-title">{{t "offerSummaryTitle"}}</h2>
     <div class="kpi-row">
       <div class="kpi"><div class="kpi-val">{{totalPallets phase1Pallets phase2Pallets phase3Pallets}}</div><div class="kpi-lbl">{{t "kpiTotalPallet"}}</div></div>
@@ -173,7 +175,9 @@
       <div class="kpi"><div class="kpi-val">24/7</div><div class="kpi-lbl">{{t "kpiSecurity"}}</div></div>
     </div>
     <div class="hl-box green"><p>{{{offerHighlightHtml}}}</p></div>
+    {{/if}}
 
+    {{#if showPricing}}
     <div class="divider"></div>
     <h2 class="sec-title">{{t "pricingTitle"}}</h2>
     <table class="price-table">
@@ -185,15 +189,20 @@
       </tbody>
     </table>
     <div class="hl-box amber"><p><strong>{{t "priceAdjClause"}}</strong> {{{priceAdjustmentHtml}}}</p></div>
+    {{/if}}
 
+    {{#if showIncluded}}
     <div class="sub">
       <div class="sub-hdr"><div class="sub-ico"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><h3 class="sub-t">{{t "whatsIncludedTitle"}}</h3></div>
       <ul class="sl">{{{includedItemsHtml}}}</ul>
     </div>
+    {{/if}}
   </div>
   <div class="pg-ftr"><span class="pg-ftr-text">{{t "footerPage2"}}</span><div class="pg-num">02</div></div>
 </div>
+{{/if}}
 
+{{#if showPage3}}
 <!-- ===== PAGE 3: CONTRACT, PAYMENT, CAPACITY ===== -->
 <div class="page content-page">
   <div class="pg-hdr">
@@ -201,6 +210,7 @@
     <div class="pg-hdr-right"><span class="pg-hdr-badge">{{t "confidential"}}</span><span class="pg-hdr-url">www.frostdepo.com</span></div>
   </div>
   <div class="pg-body">
+    {{#if showContractTerms}}
     <h2 class="sec-title">{{t "contractTermsTitle"}}</h2>
     <div class="grid-2">
       <div class="card">
@@ -212,14 +222,18 @@
         <ul class="sl">{{{palletSpecsItemsHtml}}}</ul>
       </div>
     </div>
+    {{/if}}
 
+    {{#if showPayment}}
     <div class="divider"></div>
     <h2 class="sec-title">{{t "paymentTitle"}}</h2>
     <div class="sub">
       <div class="sub-hdr"><div class="sub-ico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zm-8-1h2v-4h4v-2h-4V7h-2v4H8v2h4v4z"/></svg></div><h3 class="sub-t">{{t "paymentTitle"}}</h3></div>
       <ul class="sl">{{{paymentItemsHtml}}}</ul>
     </div>
+    {{/if}}
 
+    {{#if showCapacity}}
     <div class="divider"></div>
     <h2 class="sec-title">{{t "capacityTitle"}}</h2>
     <div class="hl-box"><p>{{{capacityIntroHtml}}}</p></div>
@@ -243,10 +257,13 @@
       <div class="kpi"><div class="kpi-val">{{phase3Rooms}} × {{phase3Size}}m²</div><div class="kpi-lbl">{{t "phase3Label"}} {{t "phaseRooms"}}</div></div>
       <div class="kpi"><div class="kpi-val">{{totalPallets phase1Pallets phase2Pallets phase3Pallets}}+</div><div class="kpi-lbl">{{t "totalPalletsBy"}} {{phase3DateShort}}</div></div>
     </div>
+    {{/if}}
   </div>
   <div class="pg-ftr"><span class="pg-ftr-text">{{t "footerPage3"}}</span><div class="pg-num">03</div></div>
 </div>
+{{/if}}
 
+{{#if showPage4}}
 <!-- ===== PAGE 4: OPERATIONS & SECURITY ===== -->
 <div class="page content-page">
   <div class="pg-hdr">
@@ -254,6 +271,7 @@
     <div class="pg-hdr-right"><span class="pg-hdr-badge">{{t "confidential"}}</span><span class="pg-hdr-url">www.frostdepo.com</span></div>
   </div>
   <div class="pg-body">
+    {{#if showOperations}}
     <h2 class="sec-title">{{t "operationalTitle"}}</h2>
     <div class="grid-2">
       <div class="sub">
@@ -265,7 +283,9 @@
         <ul class="sl">{{{climateItemsHtml}}}</ul>
       </div>
     </div>
+    {{/if}}
 
+    {{#if showSecurity}}
     <div class="divider"></div>
     <h2 class="sec-title">{{t "securityHseTitle"}}</h2>
     <div class="grid-2">
@@ -278,10 +298,13 @@
         <ul class="sl">{{{hseItemsHtml}}}</ul>
       </div>
     </div>
+    {{/if}}
   </div>
   <div class="pg-ftr"><span class="pg-ftr-text">{{t "footerPage4"}}</span><div class="pg-num">04</div></div>
 </div>
+{{/if}}
 
+{{#if showFacilitySpecs}}
 <!-- ===== PAGE 5: FACILITY SPECS ===== -->
 <div class="page content-page">
   <div class="pg-hdr">
@@ -345,6 +368,7 @@
   </div>
   <div class="pg-ftr"><span class="pg-ftr-text">{{t "footerPage5"}}</span><div class="pg-num">05</div></div>
 </div>
+{{/if}}
 
 <!-- ===== BACK COVER ===== -->
 <div class="page back">

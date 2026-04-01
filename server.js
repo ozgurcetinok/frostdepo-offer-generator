@@ -82,7 +82,20 @@ function buildContext(body) {
     monthlyInOut: body.monthlyInOut || 750,
   };
 
+  const SECTION_TOGGLES = [
+    'showOfferSummary', 'showPricing', 'showIncluded',
+    'showContractTerms', 'showPayment', 'showCapacity',
+    'showOperations', 'showSecurity', 'showFacilitySpecs',
+  ];
+
   const ctx = { ...body, ...assets, _labels: labels };
+
+  for (const key of SECTION_TOGGLES) {
+    ctx[key] = body[key] !== false && body[key] !== 'false';
+  }
+  ctx.showPage2 = ctx.showOfferSummary || ctx.showPricing || ctx.showIncluded;
+  ctx.showPage3 = ctx.showContractTerms || ctx.showPayment || ctx.showCapacity;
+  ctx.showPage4 = ctx.showOperations || ctx.showSecurity;
 
   for (const field of EDITABLE_LIST_FIELDS) {
     const raw = body[field] || editDefaults[field] || '';
