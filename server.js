@@ -144,7 +144,9 @@ app.post('/api/generate-pdf', async (req, res) => {
     const browser = await getBrowser();
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'load', timeout: 30000 });
-    await new Promise(r => setTimeout(r, 1000));
+    await page.evaluate(() =>
+      Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 3000))])
+    );
     const pdfData = await page.pdf({
       format: 'A4',
       printBackground: true,

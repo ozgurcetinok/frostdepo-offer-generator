@@ -3,6 +3,7 @@ FROM node:20-slim
 RUN apt-get update && apt-get install -y \
     chromium \
     fonts-liberation \
+    fonts-dejavu-core \
     fonts-noto-color-emoji \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
