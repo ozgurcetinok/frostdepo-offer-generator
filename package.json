@@ -1,0 +1,14 @@
+{
+  "name": "frostdepo-offer-generator",
+  "version": "1.0.0",
+  "description": "FrostDepo cold storage offer PDF generator",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "handlebars": "^4.7.8",
+    "puppeteer": "^24.0.0"
+  }
+}

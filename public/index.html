@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FrostDepo — Offer Generator</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+      colors: {
+        brand: { 50: '#E8F4FD', 100: '#C8E6F5', 500: '#2E86DE', 600: '#2471BD', 700: '#1A3A6B', 900: '#0B1D3A' },
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .field-group { display: grid; gap: 12px; }
+  input, select { transition: border-color 0.15s, box-shadow 0.15s; }
+  input:focus, select:focus { border-color: #2E86DE; box-shadow: 0 0 0 3px rgba(46,134,222,0.12); outline: none; }
+  .btn-primary { background: linear-gradient(135deg, #0B1D3A, #1A3A6B); }
+  .btn-primary:hover { background: linear-gradient(135deg, #1A3A6B, #2E86DE); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner { animation: spin 0.8s linear infinite; }
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<div class="max-w-4xl mx-auto py-8 px-4">
+  <!-- Header -->
+  <div class="flex items-center gap-4 mb-8">
+    <img src="frostdepo_logo.png" alt="FrostDepo" class="h-12">
+    <div>
+      <h1 class="text-2xl font-extrabold text-brand-900">Offer Generator</h1>
+      <p class="text-sm text-gray-500">Fill in the details below, then preview or download the PDF.</p>
+    </div>
+  </div>
+
+  <form id="offerForm" class="space-y-6">
+
+    <!-- Section: Client & Offer Info -->
+    <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Client & Offer Details</legend>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Client Company Name</label>
+          <input name="clientName" type="text" placeholder="e.g. Syngenta Seeds B.V." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Client Address</label>
+          <input name="clientAddress" type="text" placeholder="e.g. Rotterdam, Netherlands" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Offer Date</label>
+          <input name="offerDate" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Reference Number</label>
+          <input name="refNumber" type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Validity</label>
+          <input name="validity" type="text" value="30 Days" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Section: Pricing -->
+    <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Pricing</legend>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Storage Fee (₺/pallet/month)</label>
+          <input name="storageFee" type="number" value="1250" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Loading Fee ($/pallet)</label>
+          <input name="loadingFee" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Unloading Fee ($/pallet)</label>
+          <input name="unloadingFee" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">VAT Rate (%)</label>
+          <input name="vatRate" type="number" value="20" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Section: Capacity Phases -->
+    <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Capacity Phases</legend>
+
+      <p class="text-xs text-gray-500 mt-2 mb-4">Define the phased rollout schedule for storage capacity.</p>
+
+      <!-- Phase 1 -->
+      <div class="mb-4 p-4 bg-brand-50 rounded-lg border border-brand-100">
+        <h3 class="text-xs font-bold text-brand-700 mb-3">Phase 1</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div><label class="block text-xs text-gray-600 mb-1">Date</label><input name="phase1Date" type="text" value="Monday, April 20, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase1Pallets" type="number" value="500" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase1Rooms" type="number" value="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase1Size" type="number" value="240" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <h3 class="text-xs font-bold text-gray-700 mb-3">Phase 2</h3>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div><label class="block text-xs text-gray-600 mb-1">Date</label><input name="phase2Date" type="text" value="Monday, May 11, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase2Pallets" type="number" value="900" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase2Rooms" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase2Size" type="number" value="140" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Storage Type</label><input name="phase2Type" type="text" value="rack systems" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <h3 class="text-xs font-bold text-gray-700 mb-3">Phase 3</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div><label class="block text-xs text-gray-600 mb-1">Date</label><input name="phase3Date" type="text" value="Monday, May 25, 2026" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Pallets</label><input name="phase3Pallets" type="number" value="900" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Rooms</label><input name="phase3Rooms" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+          <div><label class="block text-xs text-gray-600 mb-1">Room Size (m²)</label><input name="phase3Size" type="number" value="140" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></div>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Section: Operations & Contract -->
+    <fieldset class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+      <legend class="text-sm font-bold text-brand-900 uppercase tracking-wider px-2">Operations & Contract</legend>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-3">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Temperature (°C)</label>
+          <input name="temperature" type="number" value="15" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Humidity (%)</label>
+          <input name="humidity" type="number" value="50" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Monthly IN/OUT (pallets)</label>
+          <input name="monthlyInOut" type="number" value="750" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Minimum Term (months)</label>
+          <input name="minTerm" type="number" value="6" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Initial Contract Period</label>
+          <input name="initialPeriod" type="text" value="1 year" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Max Extension</label>
+          <input name="maxExtension" type="text" value="3 years" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <button type="button" id="btnPreview" class="flex-1 flex items-center justify-center gap-2 bg-white border-2 border-brand-900 text-brand-900 font-semibold rounded-xl px-6 py-3 text-sm hover:bg-brand-50 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        Preview HTML
+      </button>
+      <button type="button" id="btnDownload" class="flex-1 flex items-center justify-center gap-2 btn-primary text-white font-semibold rounded-xl px-6 py-3 text-sm transition-all">
+        <svg id="dlIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <svg id="dlSpinner" class="w-4 h-4 spinner hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="3" stroke-dasharray="40 60" stroke-linecap="round"/></svg>
+        <span id="dlText">Download PDF</span>
+      </button>
+    </div>
+  </form>
+
+  <p class="text-center text-xs text-gray-400 mt-8">&copy; 2026 FrostDepo. Internal tool — not for external distribution.</p>
+</div>
+
+<script>
+function getFormData() {
+  const form = document.getElementById('offerForm');
+  const data = {};
+  for (const el of form.querySelectorAll('input, select')) {
+    data[el.name] = el.type === 'number' ? Number(el.value) : el.value;
+  }
+  const p3 = data.phase3Date || '';
+  const parts = p3.split(',');
+  data.phase3DateShort = parts.length >= 2 ? parts.slice(1).join(',').trim() : p3;
+  return data;
+}
+
+document.getElementById('btnPreview').addEventListener('click', async () => {
+  const data = getFormData();
+  const res = await fetch('/api/preview', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  const html = await res.text();
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+});
+
+document.getElementById('btnDownload').addEventListener('click', async () => {
+  const btn = document.getElementById('btnDownload');
+  const icon = document.getElementById('dlIcon');
+  const spinner = document.getElementById('dlSpinner');
+  const text = document.getElementById('dlText');
+
+  btn.disabled = true;
+  icon.classList.add('hidden');
+  spinner.classList.remove('hidden');
+  text.textContent = 'Generating...';
+
+  try {
+    const data = getFormData();
+    const res = await fetch('/api/generate-pdf', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error('PDF generation failed');
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const disp = res.headers.get('Content-Disposition') || '';
+    const match = disp.match(/filename="?(.+?)"?$/);
+    a.download = match ? match[1] : 'FrostDepo_Offer.pdf';
+    a.href = url;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    alert('Error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    icon.classList.remove('hidden');
+    spinner.classList.add('hidden');
+    text.textContent = 'Download PDF';
+  }
+});
+
+// Auto-fill date and ref on load
+(function() {
+  const now = new Date();
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dateStr = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+  document.querySelector('[name="offerDate"]').value = dateStr;
+  const seq = String(Math.floor(Math.random() * 900) + 100);
+  document.querySelector('[name="refNumber"]').value = `FD-${now.getFullYear()}-OFFER-${seq}`;
+})();
+</script>
+</body>
+</html>
