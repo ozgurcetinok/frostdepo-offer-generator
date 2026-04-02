@@ -102,6 +102,7 @@ function buildContext(body) {
   ctx.showPage3 = ctx.showContractTerms || ctx.showPayment || ctx.showCapacity;
   ctx.showPage4 = ctx.showOperations || ctx.showSecurity;
 
+  ctx.showConfBadge = lang !== 'tr';
   ctx.phaseCount = phaseCount;
   ctx.isMultiPhase = phaseCount > 1;
   ctx.showPhase2 = phaseCount >= 2;
